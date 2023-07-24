@@ -376,7 +376,7 @@ def update_salmon_profile():
 	# total points
 	# current number of scales
 
-	# url = "https://stat.ink/api/v2/salmon-stats"
+	# url = "https://ink.ippix86.com/api/v2/salmon-stats"
 	# auth = {'Authorization': f'Bearer {API_KEY}'}
 	# updateprofile = requests.post(url, headers=auth, data=payload)
 
@@ -899,7 +899,7 @@ def prepare_job_result(job, ismonitoring, isblackout, overview_data=None, prevre
 			payload["fail_reason"] = "wipe_out"
 
 	# xtrawave only
-	# https://stat.ink/api-info/boss-salmonid3
+	# https://ink.ippix86.com/api-info/boss-salmonid3
 	if job["bossResult"]:
 		try:
 			payload["king_salmonid"] = utils.b64d(job["bossResult"]["boss"]["id"])
@@ -908,7 +908,7 @@ def prepare_job_result(job, ismonitoring, isblackout, overview_data=None, prevre
 
 		payload["clear_extra"] = "yes" if job["bossResult"]["hasDefeatBoss"] else "no"
 
-	# https://stat.ink/api-info/salmon-title3
+	# https://ink.ippix86.com/api-info/salmon-title3
 	if not is_private and job_rule != "TEAM_CONTEST": # only in regular, not private or eggstra work
 		payload["title_after"]     = utils.b64d(job["afterGrade"]["id"])
 		payload["title_exp_after"] = job["afterGradePoint"]
@@ -1118,7 +1118,7 @@ def prepare_job_result(job, ismonitoring, isblackout, overview_data=None, prevre
 		waves.append(wave_info)
 	payload["waves"] = waves
 
-	# https://stat.ink/api-info/boss-salmonid3
+	# https://ink.ippix86.com/api-info/boss-salmonid3
 	bosses = {}
 	translate_boss = {
 		4:  "bakudan",
@@ -1230,7 +1230,7 @@ def post_result(data, ismonitoring, isblackout, istestrun, overview_data=None):
 			payload["test"] = "yes"
 
 		# POST
-		url = "https://stat.ink/api/v3"
+		url = "https://ink.ippix86.com/api/v3"
 		if which == "ink":
 			url += "/battle"
 		elif which == "salmon":
@@ -1420,11 +1420,11 @@ def check_if_missing(which, isblackout, istestrun, skipprefetch):
 	# https://github.com/fetus-hina/stat.ink/wiki/Spl3-API:-Battle-%EF%BC%8D-Get-UUID-List-(for-s3s)
 	# https://github.com/fetus-hina/stat.ink/wiki/Spl3-API:-Salmon-%EF%BC%8D-Get-UUID-List
 	if which in ("both", "ink"):
-		urls.append("https://stat.ink/api/v3/s3s/uuid-list?lobby=adaptive") # max 250 entries
+		urls.append("https://ink.ippix86.com/api/v3/s3s/uuid-list?lobby=adaptive") # max 250 entries
 	else:
 		urls.append(None)
 	if which in ("both", "salmon"):
-		urls.append("https://stat.ink/api/v3/salmon/uuid-list")
+		urls.append("https://ink.ippix86.com/api/v3/salmon/uuid-list")
 	else:
 		urls.append(None)
 
@@ -1953,8 +1953,8 @@ def main():
 
 		# only upload unuploaded results
 		auth = {'Authorization': f'Bearer {API_KEY}'}
-		resp_b = requests.get("https://stat.ink/api/v3/s3s/uuid-list?lobby=adaptive", headers=auth)
-		resp_j = requests.get("https://stat.ink/api/v3/salmon/uuid-list", headers=auth)
+		resp_b = requests.get("https://ink.ippix86.com/api/v3/s3s/uuid-list?lobby=adaptive", headers=auth)
+		resp_j = requests.get("https://ink.ippix86.com/api/v3/salmon/uuid-list", headers=auth)
 		try:
 			statink_uploads = json.loads(resp_b.text)
 			statink_uploads.extend(json.loads(resp_j.text))
